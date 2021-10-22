@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { fabric } from "fabric";
 import { Row, Col, Space, Button } from "antd";
+import { nanoid } from "nanoid";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import { PlusCircleOutlined, PlusSquareOutlined } from "@ant-design/icons";
 import Properties from "./Properties";
@@ -16,9 +17,14 @@ const Editor = () => {
 
   const onAddCircle = () => {
     //editor?.addCircle();
+    //const id = nanoid();
     var circle = new fabric.Circle({
+      //__uid: id,
+      extra: {},
       radius: 20,
-      fill: "green",
+      fill: "transparent",
+      strokeWidth: 1,
+      stroke: "black",
       left: 100,
       top: 100,
     });
@@ -33,7 +39,9 @@ const Editor = () => {
     var rect = new fabric.Rect({
       left: 100,
       top: 100,
-      //fill: "red",
+      fill: "transparent",
+      strokeWidth: 1,
+      stroke: "black",
       width: 20,
       height: 20,
     });
@@ -46,12 +54,22 @@ const Editor = () => {
 
   const onSave = () => {
     //const drawingCanvas = editor?.canvas.toJSON();
-    console.log(selectedObjects);
+    const editorObjects = editor?.canvas.toDatalessJSON(["extra"]);
+    localStorage.setItem("editorObjects", JSON.stringify(editorObjects));
+    console.log(editorObjects);
+  };
+
+  const onLoad = () => {
+    const editorObjects = JSON.parse(localStorage.getItem("editorObjects"));
+    editor?.canvas.loadFromJSON(editorObjects, editor?.canvas.renderAll.bind(editor?.canvas));
   };
 
   return (
     <>
-      <button onClick={onSave}>Save</button>
+      <Space>
+        <Button onClick={onSave}>Save</Button>
+        <Button onClick={onLoad}>Load</Button>
+      </Space>
       <Row>
         <Col span={1}>
           <Space direction="vertical">
