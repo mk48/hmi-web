@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { fabric } from "fabric";
 import { Row, Col, Space, Button } from "antd";
-import { nanoid } from "nanoid";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
-import { PlusCircleOutlined, PlusSquareOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined, PlusSquareOutlined, FontSizeOutlined } from "@ant-design/icons";
 import Properties from "./Properties";
 
 const Editor = () => {
-  const { editor, selectedObjects, onReady } = useFabricJSEditor();
+  const { editor, onReady } = useFabricJSEditor();
   const [selected, setSelected] = useState(null);
   /*useEffect(() => {
     editor?.canvas.on("selection:updated", function (opt) {
@@ -37,8 +36,9 @@ const Editor = () => {
   const onAddRectangle = () => {
     //editor?.addRectangle();
     var rect = new fabric.Rect({
-      left: 100,
-      top: 100,
+      extra: {},
+      left: 70,
+      top: 70,
       fill: "transparent",
       strokeWidth: 1,
       stroke: "black",
@@ -52,6 +52,14 @@ const Editor = () => {
     editor?.canvas.add(rect);
   };
 
+  const onAddText = () => {
+    var text = new fabric.Text("Text", { extra: {}, left: 50, top: 50, fontSize: 16 });
+    text.onSelect = (e) => {
+      setSelected(text);
+    };
+    editor?.canvas.add(text);
+  };
+
   const onSave = () => {
     //const drawingCanvas = editor?.canvas.toJSON();
     const editorObjects = editor?.canvas.toDatalessJSON(["extra"]);
@@ -62,6 +70,11 @@ const Editor = () => {
   const onLoad = () => {
     const editorObjects = JSON.parse(localStorage.getItem("editorObjects"));
     editor?.canvas.loadFromJSON(editorObjects, editor?.canvas.renderAll.bind(editor?.canvas));
+    editor?.canvas.forEachObject((e) => {
+      e.onSelect = (evnt) => {
+        setSelected(e);
+      };
+    });
   };
 
   return (
@@ -75,6 +88,7 @@ const Editor = () => {
           <Space direction="vertical">
             <Button onClick={onAddCircle} icon={<PlusCircleOutlined />} />
             <Button onClick={onAddRectangle} icon={<PlusSquareOutlined />} />
+            <Button onClick={onAddText} icon={<FontSizeOutlined />} />
           </Space>
         </Col>
         <Col span={19}>
