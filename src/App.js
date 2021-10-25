@@ -1,12 +1,18 @@
 import Editor from "./Components/Editor";
 import View from "./Components/View";
 import "./App.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+
+// Create a client
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div>
-      <Editor />
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div>
+        <Editor />
+      </div>
+    </QueryClientProvider>
   );
 }
 

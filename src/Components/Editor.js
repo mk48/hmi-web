@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { fabric } from "fabric";
+import { useMutation } from "react-query";
 import { Row, Col, Space, Button } from "antd";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
+import axios from "axios";
 import { PlusCircleOutlined, PlusSquareOutlined, FontSizeOutlined } from "@ant-design/icons";
 import Properties from "./Properties";
 
 const Editor = () => {
   const { editor, onReady } = useFabricJSEditor();
   const [selected, setSelected] = useState(null);
+  const saveMutation = useMutation((newEditorObjects) => {
+    return axios.post("http://localhost:3001/hmi", newEditorObjects);
+  });
+
   /*useEffect(() => {
     editor?.canvas.on("selection:updated", function (opt) {
       console.log(opt);
@@ -63,8 +69,9 @@ const Editor = () => {
   const onSave = () => {
     //const drawingCanvas = editor?.canvas.toJSON();
     const editorObjects = editor?.canvas.toDatalessJSON(["extra"]);
-    localStorage.setItem("editorObjects", JSON.stringify(editorObjects));
+    //localStorage.setItem("editorObjects", JSON.stringify(editorObjects));
     console.log(editorObjects);
+    saveMutation.mutate(editorObjects);
   };
 
   const onLoad = () => {
