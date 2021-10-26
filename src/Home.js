@@ -23,14 +23,14 @@ const Home = () => {
 
         <Content className="site-layout" style={{ padding: "0 50px", marginTop: 64 }}>
           <Switch>
+            <Route exact path="/">
+              <Designer />
+            </Route>
             <Route path="/designer">
               <Designer />
             </Route>
             <Route path="/view">
               <View />
-            </Route>
-            <Route path="/">
-              <Home />
             </Route>
           </Switch>
         </Content>

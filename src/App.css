@@ -2,6 +2,7 @@
 
 .canvas {
   height: 600px;
+  width: 400px;
 }
 
 #components-layout-demo-fixed .logo {
