@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 import Designer from "./Components/Designer";
 import View from "./Components/View";
+import Simulator from "./Components/Simulator";
 
 const { Header, Content } = Layout;
 
@@ -18,6 +19,9 @@ const Home = () => {
             <Menu.Item key="2">
               <Link to="/view">Viewer</Link>
             </Menu.Item>
+            <Menu.Item key="3">
+              <Link to="/simulator">Simulator</Link>
+            </Menu.Item>
           </Menu>
         </Header>
 
@@ -31,6 +35,9 @@ const Home = () => {
             </Route>
             <Route path="/view">
               <View />
+            </Route>
+            <Route path="/simulator">
+              <Simulator />
             </Route>
           </Switch>
         </Content>
