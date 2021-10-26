@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 import { SERVER_URL } from "../Util/constant";
+import { PageHeader } from "antd";
 
 const View = () => {
   const { data: dataResponse } = useQuery("data", () => axios.get(`${SERVER_URL}/data`), { refetchInterval: 500 });
@@ -8,7 +9,7 @@ const View = () => {
   //const [data, setData] = useState({ tag1: 20, tag2: 5, tag3: 200, tagcolor1: "red", tagcolor2: "blue" });
 
   return (
-    <div>
+    <PageHeader ghost={false} title="HMI Viewer" subTitle="view">
       <svg viewBox="0 0 800 1200" xmlns="http://www.w3.org/2000/svg">
         {dataResponse &&
           fetchHmi.data?.data?.objects?.map((comp, idx) => {
@@ -25,7 +26,7 @@ const View = () => {
             }
           })}
       </svg>
-    </div>
+    </PageHeader>
   );
 };
 

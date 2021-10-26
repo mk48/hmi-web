@@ -1,6 +1,6 @@
 import { useQuery, useMutation } from "react-query";
 import axios from "axios";
-import { Slider, Row, Col, Spin, Space } from "antd";
+import { Slider, Row, Col, Spin, Space, PageHeader } from "antd";
 
 import { SERVER_URL } from "../Util/constant";
 import { useState } from "react";
@@ -47,29 +47,31 @@ const Simulator = () => {
 
   return (
     <>
-      <Row>
-        <Col span={Width.name}>tag1</Col>
-        <Col span={Width.slider}>
-          <Slider min={1} max={400} onChange={onChangeTag1} value={tag1} />
-        </Col>
-        <Col span={Width.value}>{tag1}</Col>
-      </Row>
+      <PageHeader ghost={false} title="PLC tags" subTitle="Simulator for PLC tags">
+        <Row>
+          <Col span={Width.name}>tag1</Col>
+          <Col span={Width.slider}>
+            <Slider min={1} max={400} onChange={onChangeTag1} value={tag1} />
+          </Col>
+          <Col span={Width.value}>{tag1}</Col>
+        </Row>
 
-      <Row>
-        <Col span={Width.name}>tag2</Col>
-        <Col span={Width.slider}>
-          <Slider min={1} max={400} onChange={onChangeTag2} value={tag2} />
-        </Col>
-        <Col span={Width.value}>{tag2}</Col>
-      </Row>
+        <Row>
+          <Col span={Width.name}>tag2</Col>
+          <Col span={Width.slider}>
+            <Slider min={1} max={400} onChange={onChangeTag2} value={tag2} />
+          </Col>
+          <Col span={Width.value}>{tag2}</Col>
+        </Row>
 
-      <Row>
-        <Col span={Width.name}>tag3</Col>
-        <Col span={Width.slider}>
-          <Slider min={1} max={400} onChange={onChangeTag3} value={tag3} />
-        </Col>
-        <Col span={Width.value}>{tag3}</Col>
-      </Row>
+        <Row>
+          <Col span={Width.name}>tag3</Col>
+          <Col span={Width.slider}>
+            <Slider min={1} max={400} onChange={onChangeTag3} value={tag3} />
+          </Col>
+          <Col span={Width.value}>{tag3}</Col>
+        </Row>
+      </PageHeader>
     </>
   );
 };
