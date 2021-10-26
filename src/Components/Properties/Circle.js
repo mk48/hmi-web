@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Space, Input } from "antd";
+import { Input, Row, Col } from "antd";
+import { ProperyNameWidth, ValueWidth } from "./PropConst";
 
-const Circle = ({ circle }) => {
+const Circle = ({ circle, data }) => {
   const [fill, setFill] = useState(circle.extra?.fill);
   const [radius, setRadius] = useState(circle.extra?.radius);
 
@@ -16,16 +17,20 @@ const Circle = ({ circle }) => {
   };
 
   return (
-    <Space direction="vertical">
-      <Space>
-        <div>Fill</div>
-        <Input value={fill} onChange={onFillOnChange} />
-      </Space>
-      <Space>
-        <div>Radius</div>
-        <Input value={radius} onChange={onRadiusOnChange} />
-      </Space>
-    </Space>
+    <>
+      <Row>
+        <Col span={ProperyNameWidth}>Fill</Col>
+        <Col span={ValueWidth}>
+          <Input value={fill} onChange={onFillOnChange} />
+        </Col>
+      </Row>
+      <Row>
+        <Col span={ProperyNameWidth}>Radius</Col>
+        <Col span={ValueWidth}>
+          <Input value={radius} onChange={onRadiusOnChange} />
+        </Col>
+      </Row>
+    </>
   );
 };
 

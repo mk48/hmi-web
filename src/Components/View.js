@@ -16,7 +16,6 @@ const View = () => {
         flatternData[res.name] = res.val;
       });
       setPlcData(flatternData);
-      console.log(flatternData);
     },
   });
   const fetchHmi = useQuery("hmi", () => axios.get(`${SERVER_URL}/hmi`), { enabled: !!plcData });

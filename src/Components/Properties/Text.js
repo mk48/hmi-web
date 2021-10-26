@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Space, Input } from "antd";
 
-const Text = ({ text }) => {
+const Text = ({ text, data }) => {
   const [txt, setTxt] = useState(text.extra?.text);
 
   const onTextChange = (e) => {
