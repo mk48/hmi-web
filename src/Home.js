@@ -1,30 +1,17 @@
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Layout } from "antd";
 import Designer from "./Components/Designer";
 import View from "./Components/View";
 import Simulator from "./Components/Simulator";
+import NavMenu from "./NavMenu";
 
-const { Header, Content } = Layout;
+const { Content } = Layout;
 
 const Home = () => {
   return (
     <Layout>
       <Router>
-        <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-          <div className="logo" />
-          <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-            <Menu.Item key="1">
-              <Link to="/designer">Designer</Link>
-            </Menu.Item>
-            <Menu.Item key="2">
-              <Link to="/view">Viewer</Link>
-            </Menu.Item>
-            <Menu.Item key="3">
-              <Link to="/simulator">Simulator</Link>
-            </Menu.Item>
-          </Menu>
-        </Header>
-
+        <NavMenu />
         <Content className="site-layout" style={{ padding: "0 50px", marginTop: 64 }}>
           <Switch>
             <Route exact path="/">
