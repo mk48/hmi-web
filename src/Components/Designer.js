@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { fabric } from "fabric";
 import { useMutation, useQuery } from "react-query";
-import { Row, Col, Space, Button, Divider, Spin } from "antd";
+import { PageHeader, Row, Col, Space, Button, Divider, Spin } from "antd";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import axios from "axios";
 import { PlusCircleOutlined, PlusSquareOutlined, FontSizeOutlined, DeleteOutlined, SaveOutlined } from "@ant-design/icons";
-import { SERVER_URL } from "./../Util/constant";
+import { SERVER_URL } from "../Util/constant";
 import Properties from "./Properties";
 
-const Editor = () => {
+const Designer = () => {
   const { editor, onReady } = useFabricJSEditor();
   //const [selected, setSelected] = useState(null);
   const fetchHmi = useQuery("hmi", () => axios.get(`${SERVER_URL}/hmi`), {
@@ -91,31 +91,37 @@ const Editor = () => {
 
   return (
     <>
-      {fetchHmi.isLoading && <Spin size="large" />}
-      <Space>
-        <Button onClick={onSave} loading={saveMutation.isLoading} icon={<SaveOutlined />}>
-          Save
-        </Button>
-      </Space>
-      <Row>
-        <Col span={1}>
-          <Space direction="vertical">
-            <Button onClick={onAddCircle} icon={<PlusCircleOutlined />} />
-            <Button onClick={onAddRectangle} icon={<PlusSquareOutlined />} />
-            <Button onClick={onAddText} icon={<FontSizeOutlined />} />
-            <Divider />
-            <Button onClick={onRemove} icon={<DeleteOutlined />} />
-          </Space>
-        </Col>
-        <Col span={19}>
-          <FabricJSCanvas className="canvas" onReady={onReady} />
-        </Col>
-        <Col span={4}>
-          <Properties obj={editor?.canvas.getActiveObject()} />
-        </Col>
-      </Row>
+      <PageHeader
+        ghost={false}
+        title="HMI Designer"
+        subTitle="Design your HMI screen"
+        extra={[
+          <Button key="1" type="primary" onClick={onSave} loading={saveMutation.isLoading} icon={<SaveOutlined />}>
+            Save
+          </Button>,
+        ]}
+      >
+        {fetchHmi.isLoading && <Spin size="large" />}
+        <Row>
+          <Col span={1}>
+            <Space direction="vertical">
+              <Button onClick={onAddCircle} icon={<PlusCircleOutlined />} />
+              <Button onClick={onAddRectangle} icon={<PlusSquareOutlined />} />
+              <Button onClick={onAddText} icon={<FontSizeOutlined />} />
+              <Divider />
+              <Button onClick={onRemove} icon={<DeleteOutlined />} />
+            </Space>
+          </Col>
+          <Col span={19}>
+            <FabricJSCanvas className="canvas" onReady={onReady} />
+          </Col>
+          <Col span={4}>
+            <Properties obj={editor?.canvas.getActiveObject()} />
+          </Col>
+        </Row>
+      </PageHeader>
     </>
   );
 };
 
-export default Editor;
+export default Designer;

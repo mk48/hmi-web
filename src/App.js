@@ -1,4 +1,4 @@
-import Editor from "./Components/Editor";
+import Home from "./Home";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 
@@ -8,9 +8,9 @@ const queryClient = new QueryClient();
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <div>
-        <Editor />
-      </div>
+      <>
+        <Home />
+      </>
     </QueryClientProvider>
   );
 }
