@@ -1,16 +1,24 @@
 import React, { useState } from "react";
 import { fabric } from "fabric";
-import { useMutation } from "react-query";
-import { Row, Col, Space, Button, Divider } from "antd";
+import { useMutation, useQuery } from "react-query";
+import { Row, Col, Space, Button, Divider, Spin } from "antd";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import axios from "axios";
-import { PlusCircleOutlined, PlusSquareOutlined, FontSizeOutlined, DeleteOutlined } from "@ant-design/icons";
+import { PlusCircleOutlined, PlusSquareOutlined, FontSizeOutlined, DeleteOutlined, SaveOutlined } from "@ant-design/icons";
 import { SERVER_URL } from "./../Util/constant";
 import Properties from "./Properties";
 
 const Editor = () => {
   const { editor, onReady } = useFabricJSEditor();
   //const [selected, setSelected] = useState(null);
+  const fetchHmi = useQuery("hmi", () => axios.get(`${SERVER_URL}/hmi`), {
+    refetchOnWindowFocus: false,
+    enabled: !!editor?.canvas,
+    onSuccess: (res) => {
+      editor?.canvas.loadFromJSON(res.data, editor?.canvas.renderAll.bind(editor?.canvas));
+      editor?.canvas.requestRenderAll();
+    },
+  });
   const saveMutation = useMutation((newEditorObjects) => {
     return axios.post(`${SERVER_URL}/hmi`, newEditorObjects);
   });
@@ -74,16 +82,6 @@ const Editor = () => {
     saveMutation.mutate(editorObjects);
   };
 
-  const onLoad = () => {
-    const editorObjects = JSON.parse(localStorage.getItem("editorObjects"));
-    editor?.canvas.loadFromJSON(editorObjects, editor?.canvas.renderAll.bind(editor?.canvas));
-    /*editor?.canvas.forEachObject((e) => {
-      e.onSelect = (evnt) => {
-        setSelected(e);
-      };
-    });*/
-  };
-
   const onRemove = () => {
     const selectedObj = editor?.canvas.getActiveObject();
     if (selectedObj) {
@@ -93,9 +91,11 @@ const Editor = () => {
 
   return (
     <>
+      {fetchHmi.isLoading && <Spin size="large" />}
       <Space>
-        <Button onClick={onSave}>Save</Button>
-        <Button onClick={onLoad}>Load</Button>
+        <Button onClick={onSave} loading={saveMutation.isLoading} icon={<SaveOutlined />}>
+          Save
+        </Button>
       </Space>
       <Row>
         <Col span={1}>

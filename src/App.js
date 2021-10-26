@@ -1,5 +1,4 @@
 import Editor from "./Components/Editor";
-import View from "./Components/View";
 import "./App.css";
 import { QueryClient, QueryClientProvider } from "react-query";
 
