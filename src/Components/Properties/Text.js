@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Space, Input } from "antd";
+import { Space, Input, Select } from "antd";
+const { Option } = Select;
 
 const Text = ({ text, data }) => {
   const [txt, setTxt] = useState(text.extra?.text);
 
-  const onTextChange = (e) => {
-    text.extra.text = e.target.value;
+  const onTextChange = (val) => {
+    text.extra.text = val;
     setTxt(text.extra.text);
   };
 
@@ -13,7 +14,15 @@ const Text = ({ text, data }) => {
     <Space direction="vertical">
       <Space>
         <div>Text</div>
-        <Input value={txt} onChange={onTextChange} />
+        <Select value={txt} style={{ width: "100%" }} onChange={onTextChange}>
+          {data
+            .filter((d) => d.type === "analog")
+            .map((d) => (
+              <Option key={"width-" + d.name} value={d.name}>
+                {d.name}
+              </Option>
+            ))}
+        </Select>
       </Space>
     </Space>
   );

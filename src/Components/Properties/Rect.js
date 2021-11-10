@@ -19,7 +19,7 @@ const Rect = ({ rect, data }) => {
   };
 
   return (
-    <Space direction="vertical">
+    <Space direction="vertical" style={{ width: "100%" }}>
       <Row>
         <Col span={ProperyNameWidth}>Fill</Col>
         <Col span={ValueWidth}>

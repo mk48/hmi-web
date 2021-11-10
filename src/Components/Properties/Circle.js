@@ -1,36 +1,46 @@
 import React, { useState } from "react";
-import { Input, Row, Col } from "antd";
+import { Input, Row, Col, Space, Select } from "antd";
 import { ProperyNameWidth, ValueWidth } from "./PropConst";
+import Fill from "./Fill";
+const { Option } = Select;
 
 const Circle = ({ circle, data }) => {
   const [fill, setFill] = useState(circle.extra?.fill);
   const [radius, setRadius] = useState(circle.extra?.radius);
 
-  const onFillOnChange = (e) => {
-    circle.extra.fill = e.target.value;
+  const onFillChange = (filltype, color) => {
+    circle.extra.fill = { ...circle.extra.fill, [filltype]: color };
     setFill(circle.extra.fill);
   };
 
-  const onRadiusOnChange = (e) => {
-    circle.extra.radius = e.target.value;
+  const onRadiusOnChange = (val) => {
+    circle.extra.radius = val;
     setRadius(circle.extra.radius);
   };
 
   return (
-    <>
+    <Space direction="vertical" style={{ width: "100%" }}>
       <Row>
         <Col span={ProperyNameWidth}>Fill</Col>
         <Col span={ValueWidth}>
-          <Input value={fill} onChange={onFillOnChange} />
+          <Fill fill={fill} onFillChange={onFillChange} />
         </Col>
       </Row>
       <Row>
         <Col span={ProperyNameWidth}>Radius</Col>
         <Col span={ValueWidth}>
-          <Input value={radius} onChange={onRadiusOnChange} />
+          <Select value={radius} style={{ width: "100%" }} onChange={onRadiusOnChange}>
+            {data
+              .filter((d) => d.type === "analog")
+              .map((d) => (
+                <Option key={"width-" + d.name} value={d.name}>
+                  {d.name}
+                </Option>
+              ))}
+          </Select>
         </Col>
       </Row>
-    </>
+    </Space>
   );
 };
 
