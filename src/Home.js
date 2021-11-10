@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Layout } from "antd";
-import Designer from "./Components/Designer";
+import Designer from "./Components/Design/Designer";
 import View from "./Components/View";
 import Simulator from "./Components/Simulator/index";
 import NavMenu from "./NavMenu";

@@ -5,8 +5,9 @@ import { PageHeader, Row, Col, Space, Button, Divider, Spin } from "antd";
 import { FabricJSCanvas, useFabricJSEditor } from "fabricjs-react";
 import axios from "axios";
 import { PlusCircleOutlined, PlusSquareOutlined, FontSizeOutlined, DeleteOutlined, SaveOutlined } from "@ant-design/icons";
-import { SERVER_URL } from "../Util/constant";
-import Properties from "./Properties";
+import { SERVER_URL } from "../../Util/constant";
+import Properties from "../Properties";
+import "./style.css";
 
 const Designer = () => {
   const { editor, onReady } = useFabricJSEditor();
@@ -91,10 +92,10 @@ const Designer = () => {
               <Button onClick={onRemove} icon={<DeleteOutlined />} />
             </Space>
           </Col>
-          <Col span={15}>
+          <Col span={14} className="dotbackground" style={{ marginLeft: 20, marginRight: 20 }}>
             <FabricJSCanvas className="canvas" onReady={onReady} />
           </Col>
-          <Col span={8}>
+          <Col span={7}>
             <Properties obj={editor?.canvas.getActiveObject()} />
           </Col>
         </Row>

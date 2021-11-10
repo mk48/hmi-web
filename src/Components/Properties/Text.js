@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Space, Input, Select } from "antd";
+import { Space, Input, Select, Row, Col } from "antd";
+import { ProperyNameWidth, ValueWidth } from "./PropConst";
 const { Option } = Select;
 
 const Text = ({ text, data }) => {
@@ -11,19 +12,19 @@ const Text = ({ text, data }) => {
   };
 
   return (
-    <Space direction="vertical">
-      <Space>
-        <div>Text</div>
-        <Select value={txt} style={{ width: "100%" }} onChange={onTextChange}>
-          {data
-            .filter((d) => d.type === "analog")
-            .map((d) => (
+    <Space direction="vertical" style={{ width: "100%" }}>
+      <Row>
+        <Col span={ProperyNameWidth}>Text</Col>
+        <Col span={ValueWidth}>
+          <Select value={txt} style={{ width: "100%" }} onChange={onTextChange}>
+            {data.map((d) => (
               <Option key={"width-" + d.name} value={d.name}>
                 {d.name}
               </Option>
             ))}
-        </Select>
-      </Space>
+          </Select>
+        </Col>
+      </Row>
     </Space>
   );
 };
