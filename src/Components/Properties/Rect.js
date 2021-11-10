@@ -1,14 +1,15 @@
 import React, { useState } from "react";
-import { Input, Row, Col, Select } from "antd";
+import { Input, Row, Col, Select, Space, Divider } from "antd";
 import { ProperyNameWidth, ValueWidth } from "./PropConst";
+import Fill from "./Fill";
 const { Option } = Select;
 
 const Rect = ({ rect, data }) => {
-  const [fill, setFill] = useState(rect.extra?.fill);
+  const [fill, setFill] = useState({ ...rect.extra?.fill });
   const [selectedWidth, setSelectedWidth] = useState(rect.extra?.width);
 
-  const onFillChange = (e) => {
-    rect.extra.fill = e.target.value;
+  const onFillChange = (filltype, color) => {
+    rect.extra.fill = { ...rect.extra.fill, [filltype]: color };
     setFill(rect.extra.fill);
   };
 
@@ -18,13 +19,14 @@ const Rect = ({ rect, data }) => {
   };
 
   return (
-    <>
+    <Space direction="vertical">
       <Row>
         <Col span={ProperyNameWidth}>Fill</Col>
         <Col span={ValueWidth}>
-          <Input value={fill} onChange={onFillChange} />
+          <Fill fill={fill} onFillChange={onFillChange} />
         </Col>
       </Row>
+
       <Row>
         <Col span={ProperyNameWidth}>Width</Col>
         <Col span={ValueWidth}>
@@ -39,7 +41,7 @@ const Rect = ({ rect, data }) => {
           </Select>
         </Col>
       </Row>
-    </>
+    </Space>
   );
 };
 
