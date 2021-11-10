@@ -13,6 +13,11 @@ const Rect = ({ rect, data }) => {
     setFill(rect.extra.fill);
   };
 
+  const onFillTagChange = (tag) => {
+    rect.extra.fill = { ...rect.extra.fill, tag: tag };
+    setFill(rect.extra.fill);
+  };
+
   const handleWidthChange = (val) => {
     rect.extra.width = val;
     setSelectedWidth(val);
@@ -23,7 +28,7 @@ const Rect = ({ rect, data }) => {
       <Row>
         <Col span={ProperyNameWidth}>Fill</Col>
         <Col span={ValueWidth}>
-          <Fill fill={fill} onFillChange={onFillChange} />
+          <Fill fill={fill} data={data} onFillChange={onFillChange} onFillTagChange={onFillTagChange} />
         </Col>
       </Row>
 

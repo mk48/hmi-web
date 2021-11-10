@@ -13,6 +13,11 @@ const Circle = ({ circle, data }) => {
     setFill(circle.extra.fill);
   };
 
+  const onFillTagChange = (tag) => {
+    circle.extra.fill = { ...circle.extra.fill, tag: tag };
+    setFill(circle.extra.fill);
+  };
+
   const onRadiusOnChange = (val) => {
     circle.extra.radius = val;
     setRadius(circle.extra.radius);
@@ -23,7 +28,7 @@ const Circle = ({ circle, data }) => {
       <Row>
         <Col span={ProperyNameWidth}>Fill</Col>
         <Col span={ValueWidth}>
-          <Fill fill={fill} onFillChange={onFillChange} />
+          <Fill fill={fill} data={data} onFillChange={onFillChange} onFillTagChange={onFillTagChange} />
         </Col>
       </Row>
       <Row>

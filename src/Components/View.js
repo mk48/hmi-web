@@ -26,9 +26,11 @@ const View = () => {
         {plcData &&
           fetchHmi.data?.data?.objects?.map((comp, idx) => {
             if (comp.type === "circle") {
-              return <circle key={idx} cx={comp.left} cy={comp.top} r={plcData[comp.extra.radius]} fill="transparent" stroke="black" />;
+              const fillColor = plcData[comp.extra.fill.tag] ? comp.extra.fill.on : comp.extra.fill.off;
+              return <circle key={idx} cx={comp.left} cy={comp.top} r={plcData[comp.extra.radius]} fill={fillColor} stroke="black" />;
             } else if (comp.type === "rect") {
-              return <rect key={idx} x={comp.left} y={comp.top} width={plcData[comp.extra.width]} height={comp.height} fill="transparent" stroke="black" />;
+              const fillColor = plcData[comp.extra.fill.tag] ? comp.extra.fill.on : comp.extra.fill.off;
+              return <rect key={idx} x={comp.left} y={comp.top} width={plcData[comp.extra.width]} height={comp.height} fill={fillColor} stroke="black" />;
             } else if (comp.type === "text") {
               return (
                 <text key={idx} x={comp.left} y={comp.top} fill="black">
